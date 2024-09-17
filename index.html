@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Financeira</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/imask@6/dist/imask.min.js"></script>
+  <style>
+    /* Estilo do modo escuro */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f8f9fa;
+    }
+
+    /* Estilo do modo claro */
+    body.light-mode {
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+
+    .form-container {
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      background-color: #343a40; /* Escurece a caixa para modo escuro */
+      color: white;
+      max-width: 500px; /* Limita a largura máxima do formulário */
+      width: 100%; /* O formulário ocupa 100% do espaço do contêiner */
+    }
+
+    .dark-mode .form-container {
+      background-color: #343a40; /* Caixa escura para modo escuro */
+      color: white;
+    }
+
+    .light-mode .form-container {
+      background-color: white; /* Caixa clara para modo claro */
+      color: black;
+    }
+
+    /* Estilo do botão flutuante */
+    .btn-floating {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: #ffc107;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Ícone da lâmpada */
+    .lamp-on {
+      background-color: #ffc107; /* Cor da luz acesa */
+      box-shadow: 0 0 15px #ffc107; /* Efeito de luz acesa */
+    }
+
+    .lamp-off {
+      background-color: #6c757d; /* Cor da luz apagada */
+      box-shadow: none; /* Sem efeito de luz */
+    }
+
+    .lamp-icon {
+      font-size: 20px;
+      color: #212529;
+    }
+
+    .lamp-on .lamp-icon {
+      color: #212529; /* Cor para a lâmpada acesa */
+    }
+
+    .lamp-off .lamp-icon {
+      color: #f8f9fa; /* Cor para a lâmpada apagada */
+    }
+
+    .btn-center {
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-calculate {
+      width: 50%;
+    }
+
+    .form-control[readonly] {
+      background-color: #f8f9fa;
+      color: #6c757d;
+    }
+
+    .form-control:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    #resultados {
+      display: none;
+    }
+
+    /* Regras de mídia para telas menores que 566px */
+    @media (max-width: 566px) {
+      .form-container {
+        max-width: 100%; /* Ajusta a largura para ocupar todo o espaço */
+        padding: 10px; /* Adiciona preenchimento para evitar corte de elementos */
+      }
+
+      .input-group-text {
+        font-size: 0.7rem; /* Reduz o tamanho da fonte para caber nos inputs */
+      }
+
+      .btn-calculate {
+        width: 100%; /* Botão ocupa toda a largura disponível */
+      }
+    }
+  </style>
+</head>
+<body class="dark-mode d-flex align-items-center justify-content-center p-2">
+  <div class="card form-container">
+    <div class="card-body">
+      <h3 class="card-title text-center pb-2">Calculadora Financeira</h3>
+      <form>
+        <div class="input-group mb-3">
+          <span class="input-group-text">R$</span>
+          <input type="text" class="form-control text-start" id="aporteMensal" placeholder="Aporte Mensal" aria-label="Aporte Mensal">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Meses</span>
+          <input type="number" class="form-control text-start" id="numPeriodos" placeholder="Número de Períodos" aria-label="Número de Períodos" oninput="atualizarAnos()">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Anos</span>
+          <input type="text" class="form-control text-start" id="anosInvestidos" readonly>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">%</span>
+          <input type="text" class="form-control text-start" id="taxaJuros" placeholder="Taxa de Juros ao Ano" aria-label="Taxa de Juros ao Ano">
+        </div>
+        <div class="btn-center">
+          <button type="button" class="btn btn-dark btn-calculate" onclick="calcular()">CALCULAR</button>
+        </div>
+      </form>
+
+      <div id="resultados" class="mt-3">
+        <div class="input-group mb-2">
+          <span class="input-group-text">Montante Final</span>
+          <input type="text" class="form-control text-start" id="montanteFinal" readonly>
+        </div>
+        <div class="input-group mb-2">
+          <span class="input-group-text">Total Aportado</span>
+          <input type="text" class="form-control text-start" id="totalAportado" readonly>
+        </div>
+        <div class="input-group mb-2">
+          <span class="input-group-text">Total em Juros</span>
+          <input type="text" class="form-control text-start" id="totalJuros" readonly>
+        </div>
+        <div class="input-group mb-2">
+          <span class="input-group-text">Taxa Mensal</span>
+          <input type="text" class="form-control text-start" id="taxaMensal" readonly>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão flutuante -->
+  <div id="toggleTheme" class="btn-floating lamp-on" onclick="toggleTheme()">
+    <span class="lamp-icon">💡</span>
+  </div>
+
+  <script>
+    // Máscara de entrada para o aporte mensal
+    IMask(document.getElementById('aporteMensal'), {
+      mask: 'R$ num',
+      blocks: {
+        num: {
+          mask: Number,
+          thousandsSeparator: '.',
+          radix: ','
+        }
+      }
+    });
+
+    // Máscara de entrada para a taxa de juros com símbolo de porcentagem
+    IMask(document.getElementById('taxaJuros'), {
+      mask: Number,
+      scale: 2,
+      signed: false,
+      radix: ',',
+      mapToRadix: ['.'],
+      suffix: ' %'
+    });
+
+    function atualizarAnos() {
+      const numPeriodos = parseInt(document.getElementById('numPeriodos').value);
+      if (!isNaN(numPeriodos)) {
+        const anos = Math.floor(numPeriodos / 12);
+        const meses = numPeriodos % 12;
+
+        let textoAnos = anos === 1 ? '1 ano' : `${anos} anos`;
+        let textoMeses = meses > 0 ? (meses === 1 ? ' e 1 mês' : ` e ${meses} meses`) : '';
+
+        document.getElementById('anosInvestidos').value = textoAnos + textoMeses;
+      } else {
+        document.getElementById('anosInvestidos').value = '';
+      }
+    }
+
+    function calcular() {
+      const aporteMensal = parseFloat(document.getElementById('aporteMensal').value.replace(/[R$\s.]/g, '').replace(',', '.'));
+      const numPeriodos = parseInt(document.getElementById('numPeriodos').value);
+      const taxaJurosAnual = parseFloat(document.getElementById('taxaJuros').value.replace(/[.\s%]/g, '').replace(',', '.')) / 100;
+
+      if (isNaN(aporteMensal) || isNaN(numPeriodos) || isNaN(taxaJurosAnual)) {
+        alert('Preencha todos os campos corretamente.');
+        return;
+      }
+
+      const taxaJurosMensal = Math.pow(1 + taxaJurosAnual, 1 / 12) - 1;
+
+      let montanteFinal = 0;
+      for (let i = 0; i < numPeriodos; i++) {
+        montanteFinal = (montanteFinal + aporteMensal) * (1 + taxaJurosMensal);
+      }
+
+      const totalAportado = aporteMensal * numPeriodos;
+      const totalJuros = montanteFinal - totalAportado;
+
+      document.getElementById('montanteFinal').value = 'R$ ' + montanteFinal.toFixed(2).replace('.', ',');
+      document.getElementById('totalAportado').value = 'R$ ' + totalAportado.toFixed(2).replace('.', ',');
+      document.getElementById('totalJuros').value = 'R$ ' + totalJuros.toFixed(2).replace('.', ',');
+
+      const taxaMensalPercentual = taxaJurosMensal * 100;
+      document.getElementById('taxaMensal').value = taxaMensalPercentual.toFixed(2).replace('.', ',') + ' %';
+
+      document.getElementById('resultados').style.display = 'block';
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      body.classList.toggle('dark-mode');
+      body.classList.toggle('light-mode');
+
+      const btn = document.getElementById('toggleTheme');
+      const lampIcon = btn.querySelector('.lamp-icon');
+
+      if (body.classList.contains('dark-mode')) {
+        btn.classList.remove('lamp-off');
+        btn.classList.add('lamp-on');
+        lampIcon.textContent = '💡';
+      } else {
+        btn.classList.remove('lamp-on');
+        btn.classList.add('lamp-off');
+        lampIcon.textContent = '🌑';
+      }
+    }
+  </script>
+</body>
+</html>
