@@ -13,14 +13,12 @@
         gtag('config', 'G-W7WP7VC6DJ');
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4751450842015003"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Financeira</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/imask@6/dist/imask.min.js"></script>
-    <link rel="shorcut icon" href="https://img.icons8.com/external-goofy-flat-kerismaker/96/external-Financial-office-goofy-flat-kerismaker.png">
     <style>
         /* Estilo do modo escuro */
         body.dark-mode {
@@ -37,27 +35,21 @@
         .form-container {
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             background-color: #343a40;
-            /* Escurece a caixa para modo escuro */
             color: white;
             max-width: 500px;
-            /* Limita a largura máxima do formulário */
             width: 100%;
-            /* O formulário ocupa 100% do espaço do contêiner */
         }
 
         .dark-mode .form-container {
             background-color: #343a40;
-            /* Caixa escura para modo escuro */
             color: white;
         }
 
         .light-mode .form-container {
             background-color: white;
-            /* Caixa clara para modo claro */
             color: black;
         }
 
-        /* Estilo do botão flutuante */
         .btn-floating {
             position: fixed;
             bottom: 20px;
@@ -73,34 +65,19 @@
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* Ícone da lâmpada */
         .lamp-on {
             background-color: #ffc107;
-            /* Cor da luz acesa */
             box-shadow: 0 0 15px #ffc107;
-            /* Efeito de luz acesa */
         }
 
         .lamp-off {
             background-color: #6c757d;
-            /* Cor da luz apagada */
             box-shadow: none;
-            /* Sem efeito de luz */
         }
 
         .lamp-icon {
             font-size: 20px;
             color: #212529;
-        }
-
-        .lamp-on .lamp-icon {
-            color: #212529;
-            /* Cor para a lâmpada acesa */
-        }
-
-        .lamp-off .lamp-icon {
-            color: #f8f9fa;
-            /* Cor para a lâmpada apagada */
         }
 
         .btn-center {
@@ -126,24 +103,31 @@
             display: none;
         }
 
-        /* Regras de mídia para telas menores que 566px */
+        .inflacao-container {
+            display: none;
+        }
+
+        .inflacao-info {
+            cursor: pointer;
+        }
+
         @media (max-width: 566px) {
             .form-container {
                 max-width: 100%;
-                /* Ajusta a largura para ocupar todo o espaço */
                 padding: 10px;
-                /* Adiciona preenchimento para evitar corte de elementos */
             }
 
             .input-group-text {
                 font-size: 0.7rem;
-                /* Reduz o tamanho da fonte para caber nos inputs */
             }
 
             .btn-calculate {
                 width: 100%;
-                /* Botão ocupa toda a largura disponível */
             }
+        }
+
+        a:visited {
+            text-decoration: none;
         }
     </style>
 </head>
@@ -172,6 +156,26 @@
                     <input type="text" class="form-control text-start" id="taxaJuros" placeholder="Taxa de Juros ao Ano"
                         aria-label="Taxa de Juros ao Ano">
                 </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="considerarInflacao"
+                        onclick="toggleInflacaoInputs()">
+                    <label class="form-check-label" for="considerarInflacao">Descontar inflação</label>
+                    <svg class="inflacao-info"
+                        onclick="window.open('https://www.bcb.gov.br/controleinflacao/historicometas', '_blank')"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        class="bi bi-question" viewBox="0 0 16 16">
+                        <path
+                            d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94" />
+                    </svg>
+
+
+                </div>
+                <div class="input-group mb-3 inflacao-container" id="inflacaoInputs">
+                    <span class="input-group-text">Inflação (%)</span>
+                    <input type="text" class="form-control text-start" id="inflacao" placeholder="Inflação Anual"
+                        aria-label="Inflação Anual">
+                </div>
+
                 <div class="btn-center">
                     <button type="button" class="btn btn-dark btn-calculate" onclick="calcular()"
                         id="buscar">CALCULAR</button>
@@ -191,21 +195,55 @@
                     <span class="input-group-text">Total em Juros</span>
                     <input type="text" class="form-control text-start" id="totalJuros" readonly>
                 </div>
-
                 <div class="input-group mb-2">
                     <span class="input-group-text">Taxa Mensal</span>
                     <input type="text" class="form-control text-start" id="taxaMensal" readonly>
                 </div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Taxa Diária</span>
+                    <input type="text" class="form-control text-start" id="taxaDiaria" readonly>
+                </div>
+                <div class="input-group mb-2" id="inflacaoTotal" style="display: none;">
+                    <span class="input-group-text">Total de Inflação a Descontar</span>
+                    <input type="text" class="form-control text-start" id="totalInflacao" readonly>
+                </div>
+                <div class="input-group mb-2" id="inflacaoResults" style="display: none;">
+                    <span class="input-group-text">Saldo</span>
+                    <input type="text" class="form-control text-start" id="montanteComInflacao" readonly>
+                </div>
             </div>
+           
+
         </div>
     </div>
+    </div>
 
-    <!-- Botão flutuante -->
     <div id="toggleTheme" class="btn-floating lamp-on" onclick="toggleTheme()">
         <span class="lamp-icon">💡</span>
     </div>
 
     <script src="script.js"></script>
+
+    <script>
+        // Função para alternar os campos de inflação
+        function toggleInflacaoInputs() {
+            const considerarInflacao = document.getElementById('considerarInflacao').checked;
+            const inflacaoInputs = document.getElementById('inflacaoInputs');
+            const inflacaoResults = document.getElementById('inflacaoResults');
+            const inflacaoTotal = document.getElementById('inflacaoTotal');
+            const montanteComInflacao = document.getElementById('montanteComInflacao');
+
+            if (considerarInflacao) {
+                inflacaoInputs.style.display = 'flex';
+                inflacaoResults.style.display = 'flex';
+                inflacaoTotal.style.display = 'flex';
+            } else {
+                inflacaoInputs.style.display = 'none';
+                inflacaoResults.style.display = 'none';
+                inflacaoTotal.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 
 </html>
