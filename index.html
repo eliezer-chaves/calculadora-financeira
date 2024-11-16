@@ -19,231 +19,72 @@
     <title>Calculadora Financeira</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/imask@6/dist/imask.min.js"></script>
-    <style>
-        /* Estilo do modo escuro */
-        body.dark-mode {
-            background-color: #121212;
-            color: #f8f9fa;
-        }
-
-        /* Estilo do modo claro */
-        body.light-mode {
-            background-color: #f8f9fa;
-            color: #212529;
-        }
-
-        .form-container {
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            background-color: #343a40;
-            color: white;
-            max-width: 500px;
-            width: 100%;
-        }
-
-        .dark-mode .form-container {
-            background-color: #343a40;
-            color: white;
-        }
-
-        .light-mode .form-container {
-            background-color: white;
-            color: black;
-        }
-
-        .btn-floating {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background-color: #ffc107;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .lamp-on {
-            background-color: #ffc107;
-            box-shadow: 0 0 15px #ffc107;
-        }
-
-        .lamp-off {
-            background-color: #6c757d;
-            box-shadow: none;
-        }
-
-        .lamp-icon {
-            font-size: 20px;
-            color: #212529;
-        }
-
-        .btn-center {
-            display: flex;
-            justify-content: center;
-        }
-
-        .btn-calculate {
-            width: 50%;
-        }
-
-        .form-control[readonly] {
-            background-color: #f8f9fa;
-            color: #6c757d;
-        }
-
-        .form-control:focus {
-            outline: none;
-            box-shadow: none;
-        }
-
-        #resultados {
-            display: none;
-        }
-
-        .inflacao-container {
-            display: none;
-        }
-
-        .inflacao-info {
-            cursor: pointer;
-        }
-
-        @media (max-width: 566px) {
-            .form-container {
-                max-width: 100%;
-                padding: 10px;
-            }
-
-            .input-group-text {
-                font-size: 0.7rem;
-            }
-
-            .btn-calculate {
-                width: 100%;
-            }
-        }
-
-        a:visited {
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 
-<body class="dark-mode d-flex align-items-center justify-content-center p-2">
-    <div class="card form-container mt-5">
-        <div class="card-body">
-            <h3 class="card-title text-center pb-2">Calculadora Financeira</h3>
-            <form id="financeForm">
-                <div class="input-group mb-3">
-                    <span class="input-group-text">R$</span>
-                    <input type="text" class="form-control text-start" id="aporteMensal" placeholder="Aporte Mensal"
-                        aria-label="Aporte Mensal">
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Meses</span>
-                    <input type="number" class="form-control text-start" id="numPeriodos"
-                        placeholder="Número de Períodos" aria-label="Número de Períodos" oninput="atualizarAnos()">
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Anos</span>
-                    <input type="text" class="form-control text-start" id="anosInvestidos" readonly>
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">%</span>
-                    <input type="text" class="form-control text-start" id="taxaJuros" placeholder="Taxa de Juros ao Ano"
-                        aria-label="Taxa de Juros ao Ano">
-                </div>
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="considerarInflacao"
-                        onclick="toggleInflacaoInputs()">
-                    <label class="form-check-label" for="considerarInflacao">Descontar inflação</label>
-                    <svg class="inflacao-info"
-                        onclick="window.open('https://www.bcb.gov.br/controleinflacao/historicometas', '_blank')"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                        class="bi bi-question" viewBox="0 0 16 16">
-                        <path
-                            d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94" />
-                    </svg>
+<body>
+    <div class="page dark-mode d-flex align-items-center justify-content-center p-2">
+        <div class="card form-container mt-5">
+            <div class="card-body">
+                <h3 class="card-title text-center pb-2">Calculadora Financeira</h3>
+                <form id="financeForm">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">R$</span>
+                        <input type="text" class="form-control text-start" id="aporteMensal" placeholder="Aporte Mensal"
+                            aria-label="Aporte Mensal">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Meses</span>
+                        <input type="number" class="form-control text-start" id="numPeriodos"
+                            placeholder="Número de Períodos" aria-label="Número de Períodos" oninput="atualizarAnos()">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Anos</span>
+                        <input type="text" class="form-control text-start" id="anosInvestidos" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">%</span>
+                        <input type="text" class="form-control text-start" id="taxaJuros"
+                            placeholder="Taxa de Juros ao Ano" aria-label="Taxa de Juros ao Ano">
+                    </div>
+                    <div class="btn-center">
+                        <button type="button" class="btn btn-dark btn-calculate" onclick="calcular()"
+                            id="buscar">CALCULAR</button>
+                    </div>
+                </form>
 
-
-                </div>
-                <div class="input-group mb-3 inflacao-container" id="inflacaoInputs">
-                    <span class="input-group-text">Inflação (%)</span>
-                    <input type="text" class="form-control text-start" id="inflacao" placeholder="Inflação Anual"
-                        aria-label="Inflação Anual">
-                </div>
-
-                <div class="btn-center">
-                    <button type="button" class="btn btn-dark btn-calculate" onclick="calcular()"
-                        id="buscar">CALCULAR</button>
-                </div>
-            </form>
-
-            <div id="resultados" class="mt-3">
-                <div class="input-group mb-2">
-                    <span class="input-group-text">Montante Final</span>
-                    <input type="text" class="form-control text-start" id="montanteFinal" readonly>
-                </div>
-                <div class="input-group mb-2">
-                    <span class="input-group-text">Total Aportado</span>
-                    <input type="text" class="form-control text-start" id="totalAportado" readonly>
-                </div>
-                <div class="input-group mb-2">
-                    <span class="input-group-text">Total em Juros</span>
-                    <input type="text" class="form-control text-start" id="totalJuros" readonly>
-                </div>
-                <div class="input-group mb-2">
-                    <span class="input-group-text">Taxa Mensal</span>
-                    <input type="text" class="form-control text-start" id="taxaMensal" readonly>
-                </div>
-                <div class="input-group mb-2">
-                    <span class="input-group-text">Taxa Diária</span>
-                    <input type="text" class="form-control text-start" id="taxaDiaria" readonly>
-                </div>
-                <div class="input-group mb-2" id="inflacaoTotal" style="display: none;">
-                    <span class="input-group-text">Total de Inflação a Descontar</span>
-                    <input type="text" class="form-control text-start" id="totalInflacao" readonly>
-                </div>
-                <div class="input-group mb-2" id="inflacaoResults" style="display: none;">
-                    <span class="input-group-text">Saldo</span>
-                    <input type="text" class="form-control text-start" id="montanteComInflacao" readonly>
+                <div id="resultados" class="mt-3">
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">Montante Final</span>
+                        <input type="text" class="form-control text-start" id="montanteFinal" readonly>
+                    </div>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">Total Aportado</span>
+                        <input type="text" class="form-control text-start" id="totalAportado" readonly>
+                    </div>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">Total em Juros</span>
+                        <input type="text" class="form-control text-start" id="totalJuros" readonly>
+                    </div>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">Taxa Mensal</span>
+                        <input type="text" class="form-control text-start" id="taxaMensal" readonly>
+                    </div>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">Taxa Diária</span>
+                        <input type="text" class="form-control text-start" id="taxaDiaria" readonly>
+                    </div>
                 </div>
             </div>
-           
-
         </div>
-    </div>
     </div>
 
     <div id="toggleTheme" class="btn-floating lamp-on" onclick="toggleTheme()">
         <span class="lamp-icon">💡</span>
     </div>
+    </div>
+    <script src="controller/script.js"></script>
 
-    <script src="script.js"></script>
-
-    <script>
-        // Função para alternar os campos de inflação
-        function toggleInflacaoInputs() {
-            const considerarInflacao = document.getElementById('considerarInflacao').checked;
-            const inflacaoInputs = document.getElementById('inflacaoInputs');
-            const inflacaoResults = document.getElementById('inflacaoResults');
-            const inflacaoTotal = document.getElementById('inflacaoTotal');
-            const montanteComInflacao = document.getElementById('montanteComInflacao');
-
-            if (considerarInflacao) {
-                inflacaoInputs.style.display = 'flex';
-                inflacaoResults.style.display = 'flex';
-                inflacaoTotal.style.display = 'flex';
-            } else {
-                inflacaoInputs.style.display = 'none';
-                inflacaoResults.style.display = 'none';
-                inflacaoTotal.style.display = 'none';
-            }
-        }
-    </script>
 </body>
 
 </html>
