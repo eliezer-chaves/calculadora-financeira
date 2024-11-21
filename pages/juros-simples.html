@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculo de Valor Futuro</title>
+    <title>Juros Simples</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -14,10 +14,8 @@
 
 </head>
 
-<body id="bg">
+<body id="bg" class="loading">
     <div class="sidebar" id="sidebar">
-        <a class="sidebar-item" href="jurosComAportes.html">Cálculo de Valor Futuro</a>
-        <a class="sidebar-item" href="magicNumber.html">Magic Number</a>
     </div>
 
     <div class="content" id="content">
@@ -30,16 +28,16 @@
         <div class="container d-flex justify-content-center align-items-center " style="min-height: 100vh;">
             <div class="card" id="card" style="max-width: 400px;">
                 <div class="card-body">
-                    <h2 class="card-title text-center"><b>Cálculo de Valor Futuro</b></h2>
-                    <p class="card-text mt-3">A fórmula para calcular o montante de um investimento com aportes mensais considera o valor inicial, os aportes fixos, a taxa de juros e o tempo, estimando o valor final com o efeito dos juros compostos.
+                    <h2 class="card-title text-center"><b>Juros Simples</b></h2>
+                    <p class="card-text mt-3">A fórmula de juros simples é utilizada em operações onde se aplica uma correção monetária apenas em cima do montante inicial. Expressa em porcentagem, essa correção se manterá com o mesmo valor durante todo o tempo decorrido até a quitação da dívida.
                     </p>
 
                     <!-- Formulário -->
-                    <div id="jurosComAportes mt-2">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">R$</span>
-                            <input type="text" class="form-control text-start" id="aporteMensal" placeholder="Aporte Mensal"
-                                aria-label="Aporte Mensal">
+                    <div id="jurosSimples">
+                        <div class="input-group mt-2 mb-3">
+                            <span class="input-group-text">Capital</span>
+                            <input type="text" class="form-control text-start" id="capitalInicial" placeholder="Capital Inicial"
+                                aria-label="Capital Inicial">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">Meses</span>
@@ -47,44 +45,28 @@
                                 placeholder="Número de Períodos" aria-label="Número de Períodos" oninput="atualizarAnos()">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text">Anos</span>
-                            <input type="text" class="form-control text-start" id="anosInvestidos" readonly>
+                            <span class="input-group-text">Tempo</span>
+                            <input type="text" class="form-control text-start" id="mesesInvestidos" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">%</span>
                             <input type="text" class="form-control text-start" id="taxaJuros"
-                                placeholder="Taxa de Juros ao Ano" aria-label="Taxa de Juros ao Ano">
+                                placeholder="Taxa de Juros Mensal" aria-label="Taxa de Juros Mensal">
                         </div>
-                        <button class="btn btn-dark w-100" onclick="calcularJurosComAportes()" data-toggle="modal" data-target="#exampleModal">Calcular</button>
+                        <button class="btn btn-dark w-100" onclick="calcularJurosSimples()" data-toggle="modal" data-target="#exampleModal">Calcular</button>
                     </div>
 
                     <!-- Exibir o resultado -->
                     <div id="resultados" class="mt-3" style="display: none;">
-                         <!-- <h5>Resultado:</h5>
-                        <p id="numCotas" class="lead"></p>
-                        <p id="investimentoTotal" class="lead"></p>
-                        <p id="rendaMensal" class="lead"></p>
-                        <p id="dy" class="lead"></p> -->
                         <div class="input-group mb-2">
                             <span class="input-group-text">Montante Final</span>
                             <input type="text" class="form-control text-start" id="montanteFinal" readonly>
                         </div>
                         <div class="input-group mb-2">
-                            <span class="input-group-text">Total Aportado</span>
-                            <input type="text" class="form-control text-start" id="totalAportado" readonly>
+                            <span class="input-group-text">Juros</span>
+                            <input type="text" class="form-control text-start" id="resultado" readonly>
                         </div>
-                        <div class="input-group mb-2">
-                            <span class="input-group-text">Total em Juros</span>
-                            <input type="text" class="form-control text-start" id="totalJuros" readonly>
-                        </div>
-                        <div class="input-group mb-2">
-                            <span class="input-group-text">Taxa Mensal</span>
-                            <input type="text" class="form-control text-start" id="taxaMensal" readonly>
-                        </div>
-                        <div class="input-group mb-2">
-                            <span class="input-group-text">Taxa Diária</span>
-                            <input type="text" class="form-control text-start" id="taxaDiaria" readonly>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -108,11 +90,11 @@
                 </div>
             </div>
         </div>
-        <script src="../js/controllers/jurosComAportes.js"></script>
+        <script src="../js/controllers/jurosSimples.js"></script>
 
     </div>
 
-    <script src="../js/controllers/main.js"></script>
+    <script src="../js/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

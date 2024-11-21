@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juros Compostos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/imask@6/dist/imask.min.js"></script>
+    <link rel="stylesheet" href="../css/sidebar.css">
+
+</head>
+
+<body id="bg" class="loading">
+    <div class="sidebar" id="sidebar">
+    </div>
+
+    <div class="content" id="content">
+        <div class="items">
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-dark" onclick="toggleSidebar()">☰</button>
+                <button class="btn btn-secondary" id="toggleModeButton" onclick="toggleDarkMode()">🌑</button>
+            </div>
+        </div>
+        <div class="container d-flex justify-content-center align-items-center " style="min-height: 100vh;">
+            <div class="card" id="card" style="max-width: 400px;">
+                <div class="card-body">
+                    <h2 class="card-title text-center"><b>Juros Compostos</b></h2>
+                    <p class="card-text mt-3">Os chamados juros sobre juros são calculados sobre valor atualizado de uma aplicação, aumentando de forma exponencial, a cada nova parcela.
+                    </p>
+
+                    <!-- Formulário -->
+                    <div id="jurosCompostos">
+                        <div class="input-group mt-2 mb-3">
+                            <span class="input-group-text">Capital</span>
+                            <input type="text" class="form-control text-start" id="capitalInicial" placeholder="Capital Inicial"
+                                aria-label="Capital Inicial">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Meses</span>
+                            <input type="number" class="form-control text-start" id="numPeriodos"
+                                placeholder="Número de Períodos" aria-label="Número de Períodos" oninput="atualizarAnos()">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Tempo</span>
+                            <input type="text" class="form-control text-start" id="mesesInvestidos" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">%</span>
+                            <input type="text" class="form-control text-start" id="taxaJuros"
+                                placeholder="Taxa de Juros Mensal" aria-label="Taxa de Juros Mensal">
+                        </div>
+                        <button class="btn btn-dark w-100" onclick="calcularJurosCompostos()" data-toggle="modal" data-target="#exampleModal">Calcular</button>
+                    </div>
+
+                    <!-- Exibir o resultado -->
+                    <div id="resultados" class="mt-3" style="display: none;">
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Montante Final</span>
+                            <input type="text" class="form-control text-start" id="montanteFinal" readonly>
+                        </div>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Juros</span>
+                            <input type="text" class="form-control text-start" id="juros" readonly>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        Preencha todos os campos!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger"data-bs-dismiss="modal" aria-label="Fechar">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/controllers/jurosCompostos.js"></script>
+
+    </div>
+
+    <script src="../js/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

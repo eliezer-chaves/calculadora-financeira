@@ -11,7 +11,27 @@
     margin: 0;
     padding: 0;
 
+}body {
+    transition: background-color 0.3s, color 0.3s;
 }
+/* Transição suave de modo claro e escuro */
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Quando o corpo está no modo escuro */
+body.dark-mode #bg, body.dark-mode #card {
+    background-color: #121212;
+    color: #f1f1f1;
+}
+
+/* Estilo aplicado enquanto a página carrega, evitando flashes de cor */
+body.loading {
+    background-color: #f1f1f1; /* Cor de fundo neutra, como cinza claro */
+    color: #000; /* Cor de texto adequada para o fundo claro */
+}
+
+
 #bg.dark-mode {
     background-color: #4c4c4c;
     color: rgb(226, 226, 226);
@@ -31,6 +51,7 @@
     background-color: #343333;
     color: whitesmoke;
 }
+
 
 .form-control:focus {
     outline: none;
