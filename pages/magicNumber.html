@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Number FII</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/imask@6/dist/imask.min.js"></script>
+    <link rel="stylesheet" href="../css/sidebar.css">
+
+</head>
+
+<body id="bg">
+    <div class="sidebar" id="sidebar">
+        <a class="sidebar-item" href="jurosComAportes.html">Cálculo de Valor Futuro</a>
+        <a class="sidebar-item" href="magicNumber.html">Magic Number</a>
+    </div>
+
+    <div class="content" id="content">
+        <div class="items">
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-dark" onclick="toggleSidebar()">☰</button>
+                <button class="btn btn-secondary" id="toggleModeButton" onclick="toggleDarkMode()">🌑</button>
+            </div>
+        </div>
+        <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="card" id="card" style="max-width: 400px;">
+                <div class="card-body">
+                    <h2 class="card-title text-center"><b>Magic Number FII</b></h2>
+                    <p class="card-text mt-3">Magic Number é usado em Fundos Imobiliários (FII) para calcular o valor necessário para que os dividendos gerem novas cotas, criando um efeito bola de neve de crescimento contínuo.
+                    </p>
+
+                    <!-- Formulário -->
+                    <div id="magicNumberForm">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Preço</span>
+                            <input type="text" class="form-control text-start" id="preco" placeholder="R$"
+                                aria-label="Aporte Mensal"  id="preco" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Dividendo</span>
+                            <input type="text" class="form-control text-start" id="dividendo" placeholder="R$"
+                                aria-label="Aporte Mensal"  id="dividendo" required>
+                        </div>
+                      
+                        <button class="btn btn-dark w-100" onclick="calculoMagicNumber()" data-toggle="modal" data-target="#exampleModal">Calcular</button>
+                    </div>
+
+                    <!-- Exibir o resultado -->
+                    <div id="resultado" class="mt-3" style="display: none;">
+                        <h5>Resultado:</h5>
+                        <p id="numCotas" class="lead"></p>
+                        <p id="investimentoTotal" class="lead"></p>
+                        <p id="rendaMensal" class="lead"></p>
+                        <p id="dy" class="lead"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalAviso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        Preencha todos os campos!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger"data-bs-dismiss="modal" aria-label="Fechar">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/controllers/magicNumber.js"></script>
+
+    </div>
+
+    <script src="../js/controllers/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

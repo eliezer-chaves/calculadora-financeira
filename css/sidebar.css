@@ -1,0 +1,82 @@
+
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    height: 100%;
+    width: 300px;
+    background-color: #f8f9fa;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar .sidebar-item {
+    display: block;
+    padding: 15px;
+    color: #000;
+    text-decoration: none;
+}
+
+.sidebar .sidebar-item:hover {
+    background-color: #ddd;
+}
+
+
+.content.sidebar-open {
+    margin-left: 300px;
+}
+
+.dark-mode .sidebar {
+    background-color: #333;
+    color: white;
+}
+
+.dark-mode .sidebar .sidebar-item {
+    color: white;
+}
+
+.dark-mode .sidebar .sidebar-item:hover {
+    background-color: #444;
+}
+
+.items {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px;
+   
+}
+
+/* Media Query para telas menores que 750px */
+@media (max-width: 750px) {
+    .sidebar {
+        width: 70%; /* A sidebar ocupa toda a largura da tela */
+        height: 100%; /* A sidebar ocupa toda a altura da tela */
+        transform: translateX(-100%); /* Inicialmente, fica escondida */
+        margin-top: 10px;
+        z-index: 1000;
+    }
+
+    .sidebar.open {
+        transform: translateX(0); /* Exibe a sidebar cobrindo o conteúdo */
+    }
+
+    .content {
+        margin-left: 0; /* O conteúdo não terá margem à esquerda */
+    }
+
+    .content.sidebar-open {
+        margin-left: 0; /* A sidebar ocupará toda a tela, então não há necessidade de margem */
+    }
+
+    .items {
+        padding: 15px; /* Ajusta o padding do header */
+    }
+}
