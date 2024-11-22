@@ -3,4 +3,4 @@ Uma aplicação web organizada no modelo MVC que oferece diversas fórmulas fina
 
 ✨ Ideal para quem busca aprender ou aplicar conceitos financeiros de forma prática e eficiente!  
 
-![Page](lib/home.png)
+![Page](lib/page.png)
