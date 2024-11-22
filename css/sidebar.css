@@ -1,4 +1,3 @@
-
 .sidebar {
     position: fixed;
     top: 0px;
@@ -9,6 +8,7 @@
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     transform: translateX(-100%);
     transition: transform 0.3s ease;
+    overflow-y: auto;
 }
 
 .sidebar.open {
@@ -50,32 +50,58 @@
     width: 100%;
     z-index: 1000;
     padding: 10px;
-   
+
 }
 
 /* Media Query para telas menores que 750px */
 @media (max-width: 750px) {
     .sidebar {
-        width: 70%; /* A sidebar ocupa toda a largura da tela */
-        height: 100%; /* A sidebar ocupa toda a altura da tela */
-        transform: translateX(-100%); /* Inicialmente, fica escondida */
+        width: 70%;
+        /* A sidebar ocupa toda a largura da tela */
+        height: 100%;
+        /* A sidebar ocupa toda a altura da tela */
+        transform: translateX(-100%);
+        /* Inicialmente, fica escondida */
         margin-top: 10px;
         z-index: 1000;
     }
 
     .sidebar.open {
-        transform: translateX(0); /* Exibe a sidebar cobrindo o conteúdo */
+        transform: translateX(0);
+        /* Exibe a sidebar cobrindo o conteúdo */
     }
 
     .content {
-        margin-left: 0; /* O conteúdo não terá margem à esquerda */
+        margin-left: 0;
+        /* O conteúdo não terá margem à esquerda */
     }
 
     .content.sidebar-open {
-        margin-left: 0; /* A sidebar ocupará toda a tela, então não há necessidade de margem */
+        margin-left: 0;
+        /* A sidebar ocupará toda a tela, então não há necessidade de margem */
     }
 
     .items {
-        padding: 15px; /* Ajusta o padding do header */
+        padding: 15px;
+        /* Ajusta o padding do header */
     }
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgb(205, 205, 205);
+    /* color of the tracking area */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: rgb(39, 39, 39);
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    border: 3px solid rgb(205, 205, 205);;
+    /* creates padding around scroll thumb */
 }
