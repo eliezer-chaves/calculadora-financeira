@@ -11,26 +11,45 @@
     margin: 0;
     padding: 0;
 
-}body {
+}
+
+body {
     transition: background-color 0.3s, color 0.3s;
 }
+
 /* Transição suave de modo claro e escuro */
 body {
     transition: background-color 0.3s, color 0.3s;
 }
 
 /* Quando o corpo está no modo escuro */
-body.dark-mode #bg, body.dark-mode #card {
-    background-color: #121212;
+body.dark-mode #bg,
+body.dark-mode #card {
+    background-color: #343333;
     color: #f1f1f1;
 }
 
 /* Estilo aplicado enquanto a página carrega, evitando flashes de cor */
 body.loading {
-    background-color: #f1f1f1; /* Cor de fundo neutra, como cinza claro */
-    color: #000; /* Cor de texto adequada para o fundo claro */
+    background-color: #f1f1f1;
+    /* Cor de fundo neutra, como cinza claro */
+    color: #000;
+    /* Cor de texto adequada para o fundo claro */
 }
 
+#button-sidebar {
+    transform: translateX(0);
+    /* Sem deslocamento inicial */
+    transition: transform 0.3s ease;
+    /* Suavidade na transição */
+}
+
+.open {
+    position: fixed;
+    top: 10px;
+    left: 310px;
+    transform: translateX(-310px);
+}
 
 #bg.dark-mode {
     background-color: #4c4c4c;
@@ -43,10 +62,12 @@ body.loading {
     min-height: 100vh;
     overflow-y: auto;
 }
-.card{
+
+.card {
     background-color: whitesmoke;
     color: #343333;
 }
+
 .card.dark-mode {
     background-color: #343333;
     color: whitesmoke;
@@ -63,4 +84,14 @@ body.loading {
     font-size: 16px;
     font-weight: 400;
 
+}
+
+#toggleModeButton {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    z-index: 1000;
 }

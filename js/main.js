@@ -16,7 +16,9 @@ function setCookie(name, value, days) {
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const content = document.getElementById('content');
+    const buttonSidebar = document.getElementById('button-sidebar');
     
+    buttonSidebar.classList.toggle('open')
     // Alterna a classe 'open' na sidebar e a classe 'sidebar-open' no conteúdo
     sidebar.classList.toggle('open');
     content.classList.toggle('sidebar-open');
@@ -31,13 +33,14 @@ function toggleSidebar() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.getElementById('sidebar');
-
+    const buttonSidebar = document.getElementById('button-sidebar');
     // Recupera o estado da sidebar do localStorage
     const sidebarState = localStorage.getItem('sidebarOpen');
-
+    const buttonSidebarState = localStorage.getItem('sidebarOpen');
     // Se o estado estiver armazenado como 'true', abre a sidebar
     if (sidebarState === 'true') {
         sidebar.classList.add('open');
+        buttonSidebar.classList.add('open')
         document.getElementById('content').classList.add('sidebar-open');
     }
 });
