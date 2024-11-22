@@ -47,7 +47,7 @@ body.loading {
 .open {
     position: fixed;
     top: 10px;
-    left: 310px;
+    left: 260px;
     transform: translateX(-310px);
 }
 
