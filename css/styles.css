@@ -51,6 +51,15 @@ body.loading {
     transform: translateX(-310px);
 }
 
+/* Media Query para telas menores que 750px */
+@media (max-width: 750px) {
+    .open {
+        left: 270px;
+    }
+    
+}
+
+
 #bg.dark-mode {
     background-color: #4c4c4c;
     color: rgb(226, 226, 226);
